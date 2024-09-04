@@ -45,6 +45,22 @@ def process_image(image_filename):
 
     # with open(f"output/{base_name}.json", "w") as f:
     #     json.dump(output, f, indent=2)
+    
+    
+    # Draw table column headers
+    column_headers = [item for item in output if item["label"] == "table column header" and item["score"] > 0.9]
+    for header in column_headers:
+        xmin, ymin, xmax, ymax = header["box"]["xmin"], header["box"]["ymin"], header["box"]["xmax"], header["box"]["ymax"]
+        draw.rectangle([xmin, ymin, xmax, ymax], outline=(0, 255, 0, 255), width=2)
+    
+    
+    # # Draw table boundaries
+    # table_boundaries = [item["box"] for item in output if item["label"] == "table" and item["score"] > 0.9]
+    # for boundary in table_boundaries:
+    #     xmin, ymin, xmax, ymax = boundary["xmin"], boundary["ymin"], boundary["xmax"], boundary["ymax"]
+    #     draw.rectangle([xmin, ymin, xmax, ymax], outline=(255, 0, 0, 255), width=3)
+    
+    
 
     # Draw vertical lines at the x-min coordinates
     x_coords = [
